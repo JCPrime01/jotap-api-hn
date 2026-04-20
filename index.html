@@ -1,234 +1,232 @@
-    1 <!DOCTYPE html>
-    2 <html lang="pt-br">
-    3 <head>
-    4     <meta charset="UTF-8">
-    5     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    6     <title>Comunidade do Jota - Jogos do Dia</title>
-    7
-    8     <script>
-    9     !function(f,b,e,v,n,t,s)
-   10     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-   11     n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-   12     if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-   13     n.queue=[];t=b.createElement(e);t.async=!0;
-   14     t.src=v;s=b.getElementsByTagName(e)[0];
-   15     s.parentNode.insertBefore(t,s)}(window, document,'script',
-   16     'https://connect.facebook.net/en_US/fbevents.js');
-   17     fbq('init', '2278337449360469');
-   18     fbq('init', '2090503714756411');
-   19     fbq('init', '2668880693491070');
-   20     fbq('init', '961619428689288');
-   21     fbq('track', 'PageView');
-   22
-   23     async function dispararLead() {
-   24       const eventId = 'search_' + Date.now();
-   25       fbq('track', 'Search', {}, { eventID: eventId });
-   26
-   27       await fetch('https://SEU-DOMINIO/api/lead', {
-   28         method: 'POST',
-   29         headers: { 'Content-Type': 'application/json' },
-   30         body: JSON.stringify({
-   31           fbp: document.cookie.match(/_fbp=([^;]+)/)?.[1] || null,
-   32           fbc: document.cookie.match(/_fbc=([^;]+)/)?.[1] || null,
-   33           userAgent: navigator.userAgent,
-   34           eventId: eventId
-   35         })
-   36       });
-   37     }
-   38     </script>
-   39     <noscript><img height="1" width="1" style="display:none"
-   40     src="https://www.facebook.com/tr?id=915150557811828&ev=PageView&noscript=1"
-   41     /></noscript>
-   42     <style>
-   43         @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,900;1,900&display=swap');
-   44
-   45         :raiz {
-   46             --primário: #00ff88;
-   47             --bg: #020202;
-   48         }
-   49
-   50         * { margin: 0; padding: 0; box-sizing: border-box; }
-   51
-   52         corpo {
-   53             cor de fundo: var(--bg);
-   54             cor: #fff;
-   55             overflow-x: oculto;
-   56             altura mínima: 100vh;
-   57             família de fontes: 'Arial', sem serifa;
-   58         }
-   59
-   60         .lp-wrapper {
-   61             posição: relativa;
-   62             Índice z: 10;
-   63             largura: 100%;
-   64             altura mínima: 100vh;
-   65             Exibir: flexível;
-   66             flex-direction: coluna;
-   67             justify-content: espaço-entre;
-   68             preenchimento: 30px 0;
-   69             fundo:
-   70                 gradiente-linear(rgba(0,0,0,0.6), rgba(0,0,0,0.9)),
-   71                 url('api-hn (2).webp') center/cover no-repeat fixed;
-   72         }
-   73
-   74         .header-section { width: 100%; text-align: center; }
-   75
-   76         .section-label {
-   77             tamanho da fonte: 11px;
-   78             text-transform: maiúsculas;
-   79             cor: var(--primary);
-   80             espaçamento entre letras: 3px;
-   81             margem-inferior: 10px;
-   82             peso da fonte: negrito;
-   83         }
-   84
-   85         .carousel-container { display: flex; width: 100%; overflow: hidden; padding: 10px 0; }
-   86         .carousel-track {
-   87             Exibir: flexível;
-   88             espaçamento: 15px;
-   89             animação: rolagem linear infinita de 35s;
-   90             preenchimento à esquerda: 15px;
-   91             largura: conteúdo máximo;
-   92         }
-   93
-   94         @keyframes scroll {
-   95             0% { transform: translateX(0); }
-   96             100% { transform: translateX(-50%); }
-   97         }
-   98
-   99         .cartão-de-jogo {
-  100             fundo: rgba(255, 255, 255, 0.05);
-  101             filtro de fundo: desfoque(10px);
-  102             -webkit-backdrop-filter: blur(10px);
-  103             largura mínima: 220px;
-  104             preenchimento: 15px;
-  105             raio da borda: 20px;
-  106             borda: 1px sólida rgba(255, 255, 255, 0.1);
-  107         }
-  108
-  109         .teams-row { display: flex; align-items: center; justify-content: center; gap: 15px; }
-  110         .team { display: flex; flex-direction: column; align-items: center; min-width: 70px; }
-  111         .team img { width: 35px; height: 35px; object-fit: contain; margin-bottom: 5px; }
-  112         .team span { font-size: 11px; font-weight: bold; white-space: nowrap; }
-  113         .vs { font-weight: 900; color: var(--primary); font-size: 14px; }
-  114
-  115         .título {
-  116             família de fontes: 'Kanit', sem serifa;
-  117             tamanho da fonte: clamp(45px, 12vw, 60px);
-  118             peso da fonte: 900;
-  119             estilo-da-fonte: itálico;
-  120             text-transform: maiúsculas;
-  121             margem superior: 200px;
-  122             altura da linha: 0,85;
-  123             alinhamento do texto: centralizado;
-  124             text-shadow: 0 4px 20px rgba(0,0,0,1);
-  125         }
-  126
-  127         .footer-section { width: 100%; display: flex; flex-direction: column; align-items: center; padding: 0 20px; margin-top: auto; }
-  128
-  129         .alert-box {
-  130             largura: 100%;
-  131             largura máxima: 360px;
-  132             fundo: rgba(255, 255, 255, 0.08);
-  133             borda: 1px sólida rgba(255, 255, 255, 0.1);
-  134             raio da borda: 12px;
-  135             preenchimento: 12px;
-  136             margem-inferior: 15px;
-  137             filtro de fundo: desfoque(10px);
-  138         }
-  139
-  140         .alert-box p { font-size: 12px; color: #fff; line-height: 1.4; text-align: center; }
-  141         .alert-box span { color: #ff8800; font-weight: bold; }
-  142
-  143         .btn-container { width: 100%; max-width: 360px; }
-  144
-  145         .btn-border-beam {
-  146             posição: relativa; preenchimento: 2px; raio da borda: 18px; transbordamento: oculto; exibição: bloco; decoração de texto: nenhuma;
-  147             box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
-  148         }
-  149
-  150         .btn-border-beam::before {
-  151             conteúdo: ""; posição: absoluta; topo: -50%; esquerda: -50%; largura: 200%; altura: 200%;
-  152             fundo: gradiente-cônico(transparente, transparente, var(--primário), transparente);
-  153             animação: rotação linear infinita a cada 3 segundos;
-  154         }
-  155
-  156         @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-  157
-  158         .btn-content {
-  159             posição: relativa; fundo: #000; cor: #fff; preenchimento: 20px; raio da borda: 16px;
-  160             tamanho da fonte: 18px; peso da fonte: 900; transformação do texto: maiúsculas; exibição: bloco; índice z: 5; alinhamento do texto: centralizado;
-  161         }
-  162
-  163     </style>
-  164 </head>
-  165 <body>
-  166
-  167     <div class="lp-wrapper">
-  168
-  169         <div class="header-section">
-  170             <p class="section-label">Jogos do Dia</p>
-  171
-  172             <div class="carousel-container">
-  173                 <div class="carousel-track">
-  174                     <div class="game-card">
-  175                         <div class="teams-row">
-  176                             <div class="team"><img src="Real_Madrid.png"><span>Real Madrid</span></div>
-  177                             <div class="vs">VS</div>
-  178                             <div class="team"><img src="Girona_FC.png"><span>Girona</span></div>
-  179                         </div>
-  180                     </div>
-  181                     <div class="game-card">
-  182                         <div class="teams-row">
-  183                             <div class="team"><img src="Olympique_Marseille_logo.svg"><span>Olympique de Marselha</span></div>
-  184                             <div class="vs">VS</div>
-  185                             <div class="team"><img src="FC_Metz_2021_Logo.svg"><span>Metz</span></div>
-  186                         </div>
-  187                     </div>
-  188                     <div class="game-card">
-  189                         <div class="teams-row">
-  190                             <div class="team"><img src="West_Ham_United_FC_logo.png"><span>West Ham</span></div>
-  191                             <div class="vs">VS</div>
-  192                             <div class="team"><img src="Wolverhampton_Wanderers.png"><span>Wolverhampton</span></div>
-  193                         </div>
-  194                     </div>
-  195                     <div class="game-card">
-  196                         <div class="teams-row">
-  197                             <div class="team"><img src="Crici.png"><span>Criciuma</span></div>
-  198                             <div class="vs">VS</div>
-  199                             <div class="team"><img src="bota-sp.png"><span>Botafogo-SP</span></div>
-  200                         </div>
-  201                     </div>
-  202
-  203                     <div class="game-card"><div class="teams-row"><div class="team"><img src="Real_Madrid.png"><span>Real Madrid</span></div><div class="vs">VS</div><div class="t
-      eam"><img src="Girona_FC.png"><span>Girona</span></div></div></div>
-  204                     <div class="game-card"><div class="teams-row"><div class="team"><img src="Olympique_Marseille_logo.svg"><span>Olympique de Marselha</span></div><div class="vs
-      ">VS</div><div class="team"><img src="FC_Metz_2021_Logo.svg"><span>Metz</span></div></div></div>
-  205                     <div class="game-card"><div class="teams-row"><div class="team"><img src="West_Ham_United_FC_logo.png""><span>West Ham</span></div><div class="vs">VS</div><di
-      v class="team"><img src="Wolverhampton_Wanderers.png"><span>Wolverhampton</span></div></div></div>
-  206                     <div class="game-card"><div class="teams-row"><div class="team"><img src="Crici.png"><span>Criciuma</span></div><div class="vs">VS</div><div class="team"><img
-       src="bota-sp.png"><span>Botafogo-SP</span></div></div></div>
-  207                 </div>
-  208             </div>
-  209
-  210
-  211
-  212             <h1 class="headline">BILHETE<br><span style="color: var(--primary)">LIBERADO</span></h1>
-  213         </div>
-  214
-  215         <div class="footer-section">
-  216             <div class="alert-box">
-  217                 <p><span>*</span> Fale comigo agora, e em breve vou mandar uma oportunidade para nos forrarmos juntos!</p>
-  218             </div>
-  219
-  220             <div class="btn-container">
-  221                 <a href="https://rp.redirecionar.online/" class="btn-border-beam" onclick="dispararLead()">
-  222                     <span class="btn-content">🔥 PEGAR BILHETE</span>
-  223                 </a>
-  224             </div>
-  225         </div>
-  226
-  227     </div>
-  228
-  229 </body>
-  230 </html>
+ <!DOCTYPE html>                                                                                                                                                                          
+  <html lang="pt-br">                                                                                                                                                                      
+  <head>                                                                                                                                                                                   
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">                                                                          
+      <title>Comunidade do Jota - Jogos do Dia</title>                                                                                                                                     
+                                                                                                                                                                                           
+      <script>                                                                                                                                                                             
+      !function(f,b,e,v,n,t,s)                                                                                                                                                             
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?                                                                                                                                    
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';                                                                                                                            
+      n.queue=[];t=b.createElement(e);t.async=!0;                                                                                                                                          
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',                                                                                                                           
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '2278337449360469');                                                                                                                                                     
+      fbq('init', '2090503714756411');                                                                                                                                                     
+      fbq('init', '2668880693491070');                                                                                                                                                     
+      fbq('init', '961619428689288');                                                                                                                                                      
+      fbq('track', 'PageView');                                                                                                                                                            
+                                                                                                                                                                                           
+      async function dispararLead() {                                                                                                                                                      
+        const eventId = 'search_' + Date.now();
+        fbq('track', 'Search', {}, { eventID: eventId });                                                                                                                                  
+                                                                                                                                                                                           
+        await fetch('https://jotap-api-hn-xi.vercel.app/api/lead', {                                                                                                                       
+          method: 'POST',                                                                                                                                                                  
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({                                                                                                                                                           
+            fbp: document.cookie.match(/_fbp=([^;]+)/)?.[1] || null,
+            fbc: document.cookie.match(/_fbc=([^;]+)/)?.[1] || null,                                                                                                                       
+            userAgent: navigator.userAgent,
+            eventId: eventId                                                                                                                                                               
+          })      
+        });                                                                                                                                                                                
+      }           
+      </script>
+      <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=915150557811828&ev=PageView&noscript=1"                                                                                                          
+      /></noscript>                                                                                                                                                                        
+      <style>                                                                                                                                                                              
+          @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,900;1,900&display=swap');                                                                                
+                                                                                                                                                                                           
+          :root {
+              --primary: #00ff88;                                                                                                                                                          
+              --bg: #020202;                                                                                                                                                               
+          }
+                                                                                                                                                                                           
+          * { margin: 0; padding: 0; box-sizing: border-box; }                                                                                                                             
+   
+          body {                                                                                                                                                                           
+              background-color: var(--bg);
+              color: #fff;
+              overflow-x: hidden;
+              min-height: 100vh;                                                                                                                                                           
+              font-family: 'Arial', sans-serif;
+          }                                                                                                                                                                                
+                  
+          .lp-wrapper {
+              position: relative;
+              z-index: 10;
+              width: 100%;                                                                                                                                                                 
+              min-height: 100vh;
+              display: flex;                                                                                                                                                               
+              flex-direction: column;
+              justify-content: space-between;
+              padding: 30px 0;
+              background:                                                                                                                                                                  
+                  linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.9)),
+                  url('api-hn (2).webp') center/cover no-repeat fixed;                                                                                                                     
+          }                                                                                                                                                                                
+                                                                                                                                                                                           
+          .header-section { width: 100%; text-align: center; }                                                                                                                             
+                  
+          .section-label {
+              font-size: 11px;
+              text-transform: uppercase;                                                                                                                                                   
+              color: var(--primary);
+              letter-spacing: 3px;                                                                                                                                                         
+              margin-bottom: 10px;
+              font-weight: bold;
+          }                                                                                                                                                                                
+   
+          .carousel-container { display: flex; width: 100%; overflow: hidden; padding: 10px 0; }                                                                                           
+          .carousel-track {
+              display: flex;                                                                                                                                                               
+              gap: 15px;
+              animation: scroll 35s linear infinite;
+              padding-left: 15px;
+              width: max-content;                                                                                                                                                          
+          }
+                                                                                                                                                                                           
+          @keyframes scroll {
+              0% { transform: translateX(0); }
+              100% { transform: translateX(-50%); }                                                                                                                                        
+          }
+                                                                                                                                                                                           
+          .game-card {
+              background: rgba(255, 255, 255, 0.05);
+              backdrop-filter: blur(10px);                                                                                                                                                 
+              -webkit-backdrop-filter: blur(10px);
+              min-width: 220px;                                                                                                                                                            
+              padding: 15px;
+              border-radius: 20px;                                                                                                                                                         
+              border: 1px solid rgba(255, 255, 255, 0.1);
+          }                                                                                                                                                                                
+                  
+          .teams-row { display: flex; align-items: center; justify-content: center; gap: 15px; }                                                                                           
+          .team { display: flex; flex-direction: column; align-items: center; min-width: 70px; }
+          .team img { width: 35px; height: 35px; object-fit: contain; margin-bottom: 5px; }                                                                                                
+          .team span { font-size: 11px; font-weight: bold; white-space: nowrap; }
+          .vs { font-weight: 900; color: var(--primary); font-size: 14px; }                                                                                                                
+                                                                                                                                                                                           
+          .headline {                                                                                                                                                                      
+              font-family: 'Kanit', sans-serif;                                                                                                                                            
+              font-size: clamp(45px, 12vw, 60px);
+              font-weight: 900;
+              font-style: italic;                                                                                                                                                          
+              text-transform: uppercase;
+              margin-top: 40px;                                                                                                                                                            
+              line-height: 0.85;
+              text-align: center;
+              text-shadow: 0 4px 20px rgba(0,0,0,1);                                                                                                                                       
+          }
+                                                                                                                                                                                           
+          .footer-section { width: 100%; display: flex; flex-direction: column; align-items: center; padding: 0 20px; margin-top: auto; }                                                  
+   
+          .alert-box {                                                                                                                                                                     
+              width: 100%;
+              max-width: 360px;
+              background: rgba(255, 255, 255, 0.08);
+              border: 1px solid rgba(255, 255, 255, 0.1);                                                                                                                                  
+              border-radius: 12px;
+              padding: 12px;                                                                                                                                                               
+              margin-bottom: 15px;
+              backdrop-filter: blur(10px);                                                                                                                                                 
+          }
+                                                                                                                                                                                           
+          .alert-box p { font-size: 12px; color: #fff; line-height: 1.4; text-align: center; }                                                                                             
+          .alert-box span { color: #ff8800; font-weight: bold; }
+                                                                                                                                                                                           
+          .btn-container { width: 100%; max-width: 360px; }
+
+          .btn-border-beam {
+              position: relative; padding: 2px; border-radius: 18px; overflow: hidden; display: block; text-decoration: none;
+              box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);                                                                                                                                 
+          }
+                                                                                                                                                                                           
+          .btn-border-beam::before {
+              content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+              background: conic-gradient(transparent, transparent, var(--primary), transparent);                                                                                           
+              animation: rotate 3s linear infinite;
+          }                                                                                                                                                                                
+                  
+          @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }                                                                                        
+                  
+          .btn-content {
+              position: relative; background: #000; color: #fff; padding: 20px; border-radius: 16px;
+              font-size: 18px; font-weight: 900; text-transform: uppercase; display: block; z-index: 5; text-align: center;                                                                
+          }                                                                                                                                                                                
+                                                                                                                                                                                           
+      </style>                                                                                                                                                                             
+  </head>         
+  <body>
+
+      <div class="lp-wrapper">
+
+          <div class="header-section">                                                                                                                                                     
+              <p class="section-label">Jogos do Dia</p>
+                                                                                                                                                                                           
+              <div class="carousel-container">
+                  <div class="carousel-track">
+                      <div class="game-card">
+                          <div class="teams-row">
+                              <div class="team"><img src="Real_Madrid.png"><span>Real Madrid</span></div>                                                                                  
+                              <div class="vs">VS</div>
+                              <div class="team"><img src="Girona_FC.png"><span>Girona</span></div>                                                                                         
+                          </div>                                                                                                                                                           
+                      </div>
+                      <div class="game-card">                                                                                                                                              
+                          <div class="teams-row">
+                              <div class="team"><img src="Olympique_Marseille_logo.svg"><span>Olympique de Marselha</span></div>
+                              <div class="vs">VS</div>                                                                                                                                     
+                              <div class="team"><img src="FC_Metz_2021_Logo.svg"><span>Metz</span></div>
+                          </div>                                                                                                                                                           
+                      </div>
+                      <div class="game-card">                                                                                                                                              
+                          <div class="teams-row">
+                              <div class="team"><img src="West_Ham_United_FC_logo.png"><span>West Ham</span></div>
+                              <div class="vs">VS</div>                                                                                                                                     
+                              <div class="team"><img src="Wolverhampton_Wanderers.png"><span>Wolverhampton</span></div>
+                          </div>                                                                                                                                                           
+                      </div>
+                      <div class="game-card">                                                                                                                                              
+                          <div class="teams-row">
+                              <div class="team"><img src="Crici.png"><span>Criciuma</span></div>
+                              <div class="vs">VS</div>                                                                                                                                     
+                              <div class="team"><img src="bota-sp.png"><span>Botafogo-SP</span></div>
+                          </div>                                                                                                                                                           
+                      </div>                                                                                                                                                               
+   
+                      <div class="game-card"><div class="teams-row"><div class="team"><img src="Real_Madrid.png"><span>Real Madrid</span></div><div class="vs">VS</div><div                
+  class="team"><img src="Girona_FC.png"><span>Girona</span></div></div></div>
+                      <div class="game-card"><div class="teams-row"><div class="team"><img src="Olympique_Marseille_logo.svg"><span>Olympique de Marselha</span></div><div                 
+  class="vs">VS</div><div class="team"><img src="FC_Metz_2021_Logo.svg"><span>Metz</span></div></div></div>                                                                                
+                      <div class="game-card"><div class="teams-row"><div class="team"><img src="West_Ham_United_FC_logo.png"><span>West Ham</span></div><div class="vs">VS</div><div 
+  class="team"><img src="Wolverhampton_Wanderers.png"><span>Wolverhampton</span></div></div></div>                                                                                         
+                      <div class="game-card"><div class="teams-row"><div class="team"><img src="Crici.png"><span>Criciuma</span></div><div class="vs">VS</div><div class="team"><img 
+  src="bota-sp.png"><span>Botafogo-SP</span></div></div></div>                                                                                                                             
+                  </div>
+              </div>                                                                                                                                                                       
+                  
+              <h1 class="headline">BILHETE<br><span style="color: var(--primary)">LIBERADO</span></h1>                                                                                     
+          </div>
+                                                                                                                                                                                           
+          <div class="footer-section">
+              <div class="alert-box">
+                  <p><span>*</span> Fale comigo agora, e em breve vou mandar uma oportunidade para nos forrarmos juntos!</p>
+              </div>                                                                                                                                                                       
+   
+              <div class="btn-container">                                                                                                                                                  
+                  <a href="https://rp.redirecionar.online/" class="btn-border-beam" onclick="dispararLead()">
+                      <span class="btn-content">🔥 PEGAR BILHETE</span>                                                                                                                    
+                  </a>
+              </div>                                                                                                                                                                       
+          </div>  
+
+      </div>
+
+  </body>                                                                                                                                                                                  
+  </html>
