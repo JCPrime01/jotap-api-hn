@@ -21,7 +21,7 @@
         const eventId = 'CompleteRegistration' + Date.now();
         fbq('track', 'CompleteRegistration', {}, { eventID: eventId });                                                                                                                                  
                                                                                                                                                                                            
-        await fetch('https://jotap-api-hn-xi.vercel.app/api/lead', {                                                                                                                       
+        await fetch('https://jotap-api-hu.vercel.app/api/lead', {                                                                                                                       
           method: 'POST',                                                                                                                                                                  
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({                                                                                                                                                           
